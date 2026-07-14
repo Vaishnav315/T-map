@@ -1,0 +1,973 @@
+{
+  "145": {
+    "DeviceID": "145",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "144": {
+    "DeviceID": "144",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "126": {
+    "DeviceID": "126",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "129": {
+    "DeviceID": "129",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "128": {
+    "DeviceID": "128",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "132": {
+    "DeviceID": "132",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "131": {
+    "DeviceID": "131",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "130": {
+    "DeviceID": "130",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "139": {
+    "DeviceID": "139",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "127": {
+    "DeviceID": "127",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "142": {
+    "DeviceID": "142",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "143": {
+    "DeviceID": "143",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "141": {
+    "DeviceID": "141",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "54": {
+    "DeviceID": "54",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "94": {
+    "DeviceID": "94",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "137": {
+    "DeviceID": "137",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "138": {
+    "DeviceID": "138",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "7": {
+    "DeviceID": "7",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "52": {
+    "DeviceID": "52",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "51": {
+    "DeviceID": "51",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "125": {
+    "DeviceID": "125",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 49.561,
+    "Percentage_Y": 18.605,
+    "Viewing_Angle": 0
+  },
+  "6": {
+    "DeviceID": "6",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "91": {
+    "DeviceID": "91",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "92": {
+    "DeviceID": "92",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "5": {
+    "DeviceID": "5",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "19": {
+    "DeviceID": "19",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "21": {
+    "DeviceID": "21",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "95": {
+    "DeviceID": "95",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "89": {
+    "DeviceID": "89",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 18.701,
+    "Percentage_Y": 52.016,
+    "Viewing_Angle": 0
+  },
+  "88": {
+    "DeviceID": "88",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 20.703,
+    "Percentage_Y": 54.186,
+    "Viewing_Angle": 0
+  },
+  "86": {
+    "DeviceID": "86",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 20.41,
+    "Percentage_Y": 45.969,
+    "Viewing_Angle": 0
+  },
+  "87": {
+    "DeviceID": "87",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 21.484,
+    "Percentage_Y": 48.76,
+    "Viewing_Angle": 0
+  },
+  "75": {
+    "DeviceID": "75",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "85": {
+    "DeviceID": "85",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 35.205,
+    "Percentage_Y": 44.109,
+    "Viewing_Angle": 0
+  },
+  "111": {
+    "DeviceID": "111",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 15.723,
+    "Percentage_Y": 38.295,
+    "Viewing_Angle": 0
+  },
+  "26": {
+    "DeviceID": "26",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 10.303,
+    "Percentage_Y": 38.062,
+    "Viewing_Angle": 0
+  },
+  "103": {
+    "DeviceID": "103",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 19.434,
+    "Percentage_Y": 31.473,
+    "Viewing_Angle": 0
+  },
+  "122": {
+    "DeviceID": "122",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 16.602,
+    "Percentage_Y": 31.318,
+    "Viewing_Angle": 0
+  },
+  "97": {
+    "DeviceID": "97",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 22.119,
+    "Percentage_Y": 31.395,
+    "Viewing_Angle": 0
+  },
+  "90": {
+    "DeviceID": "90",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "136": {
+    "DeviceID": "136",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "48": {
+    "DeviceID": "48",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "82": {
+    "DeviceID": "82",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "101": {
+    "DeviceID": "101",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "25": {
+    "DeviceID": "25",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 42.383,
+    "Percentage_Y": 34.109,
+    "Viewing_Angle": 0
+  },
+  "27": {
+    "DeviceID": "27",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 42.432,
+    "Percentage_Y": 25.814,
+    "Viewing_Angle": 90,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [
+          111,
+          329
+        ],
+        [
+          631,
+          106
+        ],
+        [
+          304,
+          105
+        ],
+        [
+          755,
+          235
+        ]
+      ],
+      "blueprint_pts": [
+        [
+          496,
+          572
+        ],
+        [
+          453,
+          544
+        ],
+        [
+          442,
+          575
+        ],
+        [
+          487,
+          546
+        ]
+      ]
+    }
+  },
+  "113": {
+    "DeviceID": "113",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 41.406,
+    "Percentage_Y": 30.155,
+    "Viewing_Angle": 0,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [590, 247],
+        [695, 122],
+        [59, 175],
+        [450, 122]
+      ],
+      "blueprint_pts": [
+        [487, 546],
+        [453, 544],
+        [496, 572],
+        [442, 575]
+      ]
+    }
+  },
+  "29": {
+    "DeviceID": "29",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "28": {
+    "DeviceID": "28",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "115": {
+    "DeviceID": "115",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "124": {
+    "DeviceID": "124",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 38.867,
+    "Percentage_Y": 30.31,
+    "Viewing_Angle": 0,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [616, 266],
+        [214, 438],
+        [199, 154],
+        [494, 173]
+      ],
+      "blueprint_pts": [
+        [453, 544],
+        [487, 546],
+        [496, 572],
+        [442, 575]
+      ]
+    }
+  },
+  "106": {
+    "DeviceID": "106",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 20.703,
+    "Percentage_Y": 30.233,
+    "Viewing_Angle": 0
+  },
+  "104": {
+    "DeviceID": "104",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "117": {
+    "DeviceID": "117",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 26.367,
+    "Percentage_Y": 23.411,
+    "Viewing_Angle": 0
+  },
+  "107": {
+    "DeviceID": "107",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 41.309,
+    "Percentage_Y": 23.256,
+    "Viewing_Angle": 0,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [236, 96],
+        [704, 60],
+        [17, 338],
+        [514, 315]
+      ],
+      "blueprint_pts": [
+        [453, 544],
+        [487, 546],
+        [442, 575],
+        [496, 572]
+      ]
+    }
+  },
+  "83": {
+    "DeviceID": "83",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "32": {
+    "DeviceID": "32",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 27.393,
+    "Percentage_Y": 62.558,
+    "Viewing_Angle": 0
+  },
+  "116": {
+    "DeviceID": "116",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 21.729,
+    "Percentage_Y": 62.481,
+    "Viewing_Angle": 0
+  },
+  "108": {
+    "DeviceID": "108",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 18.262,
+    "Percentage_Y": 62.326,
+    "Viewing_Angle": 0
+  },
+  "33": {
+    "DeviceID": "33",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 16.895,
+    "Percentage_Y": 62.326,
+    "Viewing_Angle": 180,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [
+          225,
+          238
+        ],
+        [
+          122,
+          245
+        ],
+        [
+          544,
+          51
+        ],
+        [
+          531,
+          178
+        ]
+      ],
+      "blueprint_pts": [
+        [
+          198,
+          268
+        ],
+        [
+          190,
+          261
+        ],
+        [
+          241,
+          258
+        ],
+        [
+          209,
+          277
+        ]
+      ]
+    }
+  },
+  "119": {
+    "DeviceID": "119",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 16.553,
+    "Percentage_Y": 62.403,
+    "Viewing_Angle": 0
+  },
+  "118": {
+    "DeviceID": "118",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "31": {
+    "DeviceID": "31",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 40.674,
+    "Percentage_Y": 62.248,
+    "Viewing_Angle": 0
+  },
+  "120": {
+    "DeviceID": "120",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "114": {
+    "DeviceID": "114",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "35": {
+    "DeviceID": "35",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 17.188,
+    "Percentage_Y": 69.612,
+    "Viewing_Angle": 270,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [
+          111,
+          329
+        ],
+        [
+          631,
+          106
+        ],
+        [
+          304,
+          105
+        ],
+        [
+          755,
+          235
+        ]
+      ],
+      "blueprint_pts": [
+        [
+          496,
+          572
+        ],
+        [
+          453,
+          544
+        ],
+        [
+          442,
+          575
+        ],
+        [
+          487,
+          546
+        ]
+      ]
+    }
+  },
+  "100": {
+    "DeviceID": "100",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "30": {
+    "DeviceID": "30",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 40.576,
+    "Percentage_Y": 69.535,
+    "Viewing_Angle": 0
+  },
+  "34": {
+    "DeviceID": "34",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "112": {
+    "DeviceID": "112",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "109": {
+    "DeviceID": "109",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "110": {
+    "DeviceID": "110",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 10.205,
+    "Percentage_Y": 63.333,
+    "Viewing_Angle": 0
+  },
+  "133": {
+    "DeviceID": "133",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "134": {
+    "DeviceID": "134",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "96": {
+    "DeviceID": "96",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "50": {
+    "DeviceID": "50",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 34.326,
+    "Percentage_Y": 61.163,
+    "Viewing_Angle": 0
+  },
+  "49": {
+    "DeviceID": "49",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 36.768,
+    "Percentage_Y": 61.085,
+    "Viewing_Angle": 0
+  },
+  "135": {
+    "DeviceID": "135",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 17.188,
+    "Percentage_Y": 69.612,
+    "Viewing_Angle": 0
+  },
+  "81": {
+    "DeviceID": "81",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "123": {
+    "DeviceID": "123",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "23": {
+    "DeviceID": "23",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "22": {
+    "DeviceID": "22",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "24": {
+    "DeviceID": "24",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "80": {
+    "DeviceID": "80",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "79": {
+    "DeviceID": "79",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "78": {
+    "DeviceID": "78",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "77": {
+    "DeviceID": "77",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "55": {
+    "DeviceID": "55",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "10": {
+    "DeviceID": "10",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "13": {
+    "DeviceID": "13",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 43.799,
+    "Percentage_Y": 67.054,
+    "Viewing_Angle": 0
+  },
+  "14": {
+    "DeviceID": "14",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 8.35,
+    "Percentage_Y": 70.698,
+    "Viewing_Angle": 0
+  },
+  "15": {
+    "DeviceID": "15",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "99": {
+    "DeviceID": "99",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "121": {
+    "DeviceID": "121",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "16": {
+    "DeviceID": "16",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "17": {
+    "DeviceID": "17",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "93": {
+    "DeviceID": "93",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "53": {
+    "DeviceID": "53",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "73": {
+    "DeviceID": "73",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "74": {
+    "DeviceID": "74",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "3": {
+    "DeviceID": "3",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 46.631,
+    "Percentage_Y": 45.659,
+    "Viewing_Angle": 0,
+    "LensCalibration": {
+      "screenshot_pts": [
+        [
+          297,
+          32
+        ],
+        [
+          726,
+          193
+        ],
+        [
+          270,
+          422
+        ],
+        [
+          474,
+          446
+        ]
+      ],
+      "blueprint_pts": [
+        [
+          609,
+          417
+        ],
+        [
+          573,
+          443
+        ],
+        [
+          570,
+          419
+        ],
+        [
+          569,
+          423
+        ]
+      ]
+    }
+  },
+  "4": {
+    "DeviceID": "4",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": 47.559,
+    "Percentage_Y": 45.736,
+    "Viewing_Angle": 0
+  },
+  "8": {
+    "DeviceID": "8",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "9": {
+    "DeviceID": "9",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "98": {
+    "DeviceID": "98",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "36": {
+    "DeviceID": "36",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "11": {
+    "DeviceID": "11",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "12": {
+    "DeviceID": "12",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "76": {
+    "DeviceID": "76",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "102": {
+    "DeviceID": "102",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  },
+  "105": {
+    "DeviceID": "105",
+    "Facility_Map": "TASL Security Layout",
+    "Percentage_X": null,
+    "Percentage_Y": null,
+    "Viewing_Angle": 0
+  }
+}
