@@ -15,7 +15,7 @@ t-map/
 │   │   └── bytetrack.yaml    # Custom tracker thresholds configuration
 │   ├── api/                  # Routes and API endpoints
 │   ├── core/                 # Database initialization, App routing, Global state
-│   ├── data/                 # JSON registries, CSV logs, SQLite DB (WAL format)
+│   ├── data/                 # JSON configs (credentials & SQLite DB are local and IGNORED)
 │   └── workers/              # Decoupled mathematical rules event queue
 ├── mediamtx/                 # MediaMTX RTSP stream server folder
 │   ├── mediamtx.exe          # MediaMTX executable
@@ -153,3 +153,33 @@ Because `models/`, `test_video/`, and `evidence/` are ignored by `.gitignore` to
    git push -u origin main
    ```
 *(Note: Ensure you do NOT force-add ignored files to keep the remote repository small and clean!)*
+
+---
+
+## 🔒 Camera Credentials Backup & Restore
+
+The camera registry contains raw logins and IP addresses. To store this securely in Git without exposing passwords publicly or losing them when switching machines, we use a password-protected encryption tool.
+
+### To Backup/Encrypt (On your active machine):
+1. Run the backup utility script:
+   ```bash
+   python backup_credentials.py
+   ```
+2. Choose **`1`** (Encrypt) and enter a strong master password.
+3. This creates a secure, encrypted backup file: `backend/data/camera_access_report.csv.enc`.
+4. Stage, commit, and push this file to GitHub:
+   ```bash
+   git add backend/data/camera_access_report.csv.enc
+   git commit -m "Add encrypted camera credentials backup"
+   git push origin main
+   ```
+
+### To Restore/Decrypt (On your new machine):
+1. Clone the repository and install dependencies.
+2. Run the backup utility script:
+   ```bash
+   python backup_credentials.py
+   ```
+3. Choose **`2`** (Decrypt) and enter the master password you set during encryption.
+4. The decrypted configuration file `backend/data/camera_access_report.csv` is immediately recreated locally on your disk.
+
