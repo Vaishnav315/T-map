@@ -291,7 +291,8 @@ class StreamEngine:
 
                     # Use per-camera imgsz — TensorRT engines have a fixed compiled size
                     cam_imgsz = _model_imgsz.get(self.camera_id, INFER_IMGSZ)
-                    tracker_yaml = "bytetrack.yaml" if BYTETRACK_AVAILABLE else "botsort.yaml"
+                    ai_dir = os.path.abspath(os.path.join(current_dir, "..", "ai"))
+                    tracker_yaml = os.path.join(ai_dir, "bytetrack.yaml") if BYTETRACK_AVAILABLE else "botsort.yaml"
                     with _gpu_inference_lock:
                         results = self.model.track(frame, classes=[0], imgsz=cam_imgsz, conf=INFER_CONF,
                             verbose=False, tracker=tracker_yaml,
