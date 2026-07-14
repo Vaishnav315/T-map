@@ -17,6 +17,9 @@ t-map/
 │   ├── core/                 # Database initialization, App routing, Global state
 │   ├── data/                 # JSON registries, CSV logs, SQLite DB (WAL format)
 │   └── workers/              # Decoupled mathematical rules event queue
+├── mediamtx/                 # MediaMTX RTSP stream server folder
+│   ├── mediamtx.exe          # MediaMTX executable
+│   └── mediamtx.yml          # MediaMTX configurations
 ├── models/                   # [IGNORED] Stores local PyTorch and TensorRT models
 ├── test_video/               # [IGNORED] Stores local fallback demo MP4 files
 ├── evidence/                 # [IGNORED] Stores screenshots captured during critical events
@@ -85,19 +88,31 @@ ollama pull qwen2.5vl:3b
    ```
 
 ### 2. Start Message Broker & DB Services (Docker)
-Start central Redis & TimescaleDB containers in detached mode:
+Start central Redis & central TimescaleDB databases in detached mode:
 ```bash
 docker-compose up -d
 ```
 
-### 3. Run Celery Workers
+### 3. Start MediaMTX RTSP Server
+Navigate into the `mediamtx` folder and run the RTSP stream publisher:
+```bash
+# Windows
+cd mediamtx
+.\mediamtx.exe
+
+# Linux / macOS
+cd mediamtx
+./mediamtx
+```
+
+### 4. Run Celery Workers
 Start Celery to handle async AI VLM prompts queue:
 ```bash
 # Windows / Linux / macOS (Ensure venv is active)
 celery -A backend.tasks worker --loglevel=info --concurrency=2
 ```
 
-### 4. Run the Backend API Server
+### 5. Run the Backend API Server
 Launch the FastAPI server:
 ```bash
 python server.py
@@ -105,7 +120,7 @@ python server.py
 - API starts at: `http://localhost:5000`
 - Swagger UI Documentation: `http://localhost:5000/docs`
 
-### 5. Frontend Setup & Run
+### 6. Frontend Setup & Run
 Open a separate terminal window and run:
 ```bash
 npm install
