@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from config_loader import loader
+from backend.core.config_loader import loader
 
 # ══════════════════════════════════════════════════════════════════
 #  GLOBAL DIMENSIONS DEFINITIONS

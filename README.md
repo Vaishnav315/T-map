@@ -1,185 +1,113 @@
-# t-map: Real-Time Facility Monitoring & AI Safety Tracker
+# 🛡️ SentinelIQ — Enterprise AI Safety Platform
 
-`t-map` is a production-grade, security-orchestrated facility monitoring application built for industrial desktop web environments. It features live multi-camera RTSP/video streaming, real-time computer vision (YOLOv8 people counting & worker tracking), and asynchronous Vision-Language Models (VLM) for automatic situation analysis mapped on an interactive blueprint dashboard.
-
----
-
-## 🏗️ Repository Layout
-Ensure the following directories exist when working on the project. Note that folders containing heavy binary files (`models/`, `test_video/`, `evidence/`) and dependencies are ignored by Git to keep the repository lightweight.
-
-```
-t-map/
-├── backend/                  # Fast API application
-│   ├── ai/                   # AI Tracking, Calibration, and VLM integration
-│   │   ├── modules/          # Fall detection, crowd anomalies, zone intrusion
-│   │   └── bytetrack.yaml    # Custom tracker thresholds configuration
-│   ├── api/                  # Routes and API endpoints
-│   ├── core/                 # Database initialization, App routing, Global state
-│   ├── data/                 # JSON configs (credentials & SQLite DB are local and IGNORED)
-│   └── workers/              # Decoupled mathematical rules event queue
-├── mediamtx/                 # MediaMTX RTSP stream server folder
-│   ├── mediamtx.exe          # MediaMTX executable
-│   └── mediamtx.yml          # MediaMTX configurations
-├── models/                   # [IGNORED] Stores local PyTorch and TensorRT models
-├── test_video/               # [IGNORED] Stores local fallback demo MP4 files
-├── evidence/                 # [IGNORED] Stores screenshots captured during critical events
-├── public/                   # Static assets for React frontend
-├── src/                      # React frontend source files
-├── docker-compose.yml        # Orchestrates Redis and PostgreSQL database
-├── server.py                 # FastAPI runner script
-└── requirements.txt          # Backend dependencies
-```
+> **Industrial-grade AI safety monitoring as a multi-tenant SaaS.**
+> Multi-camera RTSP ingestion, dynamic VRAM load-balancing, YOLOv8 + ByteTrack tracking, 2D blueprint homography projection, and VLM alert verification.
 
 ---
 
-## 🛠️ Technology Stack
+## ⚡ Quick Start (Development Mode)
 
-### Backend & AI Pipelines
-- **FastAPI / Uvicorn**: High-performance asynchronous API server.
-- **Celery & Redis**: Decoupled asynchronous worker queue for CPU/GPU heavy VLM analysis.
-- **PostgreSQL / SQLite**: Dual-mode storage registry (SQLite with WAL enabled for local setup, Postgres for centralized database setups).
-- **Ultralytics YOLOv8**: Real-time object detection and tracking.
-- **Ollama**: Local container-based Vision-Language Model execution.
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
 
-### Frontend
-- **React (Vite)**: Highly responsive single page application.
-- **Leaflet & React-Leaflet**: Fully customized 2D blueprint coordinate system matching real-world GPS coordinates via homography projection.
+### 1. Install Dependencies
 
----
-
-## 🖥️ AI Models Guide (CRITICAL)
-
-To run the application's AI modules and safety tracking, you must set up the local models manually.
-
-### 1. YOLOv8 Tracking Models
-Place the models inside the `models/` directory in the project root:
-- `yolov8l.pt`: PyTorch checkpoint. Used as a baseline fallback.
-- `yolov8m.engine`: TensorRT optimized engine (Medium size). Recommended for production GPU environments for balanced FPS/accuracy.
-- `yolov8l.engine`: TensorRT optimized engine (Large size). Highest accuracy tracking.
-
-### 2. Ollama Vision-Language Models (VLM)
-Ensure **Ollama** is installed and running on your machine. Run the following terminal commands to pull the necessary models:
 ```bash
-# General triage model (fast, checking initial parameters)
-ollama pull llava:latest
+# Backend
+pip install -r requirements.txt
 
-# Heavy reasoning/visual logic model (detailed posture/threat analysis)
-ollama pull qwen2.5vl:3b
-```
-
----
-
-## 🚀 Step-by-Step Running Instructions
-
-### 1. Backend Setup
-1. Create and activate a virtual environment in the `backend/` folder:
-   ```bash
-   python -m venv backend/gpu_env
-   
-   # Windows (PowerShell):
-   .\backend\gpu_env\Scripts\Activate.ps1
-   
-   # Linux / macOS:
-   source backend/gpu_env/bin/activate
-   ```
-2. Install Python packages:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### 2. Start Message Broker & DB Services (Docker)
-Start central Redis & central TimescaleDB databases in detached mode:
-```bash
-docker-compose up -d
-```
-
-### 3. Start MediaMTX RTSP Server
-Navigate into the `mediamtx` folder and run the RTSP stream publisher:
-```bash
-# Windows
-cd mediamtx
-.\mediamtx.exe
-
-# Linux / macOS
-cd mediamtx
-./mediamtx
-```
-
-### 4. Run Celery Workers
-Start Celery to handle async AI VLM prompts queue:
-```bash
-# Windows / Linux / macOS (Ensure venv is active)
-celery -A backend.tasks worker --loglevel=info --concurrency=2
-```
-
-### 5. Run the Backend API Server
-Launch the FastAPI server:
-```bash
-python server.py
-```
-- API starts at: `http://localhost:5000`
-- Swagger UI Documentation: `http://localhost:5000/docs`
-
-### 6. Frontend Setup & Run
-Open a separate terminal window and run:
-```bash
+# Frontend
 npm install
-npm run dev
 ```
-- Frontend starts at: `http://localhost:5173`
+
+### 2. Configure Environment
+
+```bash
+cp .env.example .env
+# Ensure SECRET_KEY is set.
+```
+
+### 3. Run Backend Server
+
+```bash
+# Start the FastAPI engine (Port 5001 to avoid macOS AirPlay conflicts)
+uvicorn backend.core.app:app --host 0.0.0.0 --port 5001 --reload
+
+# API: http://localhost:5001
+# Docs: http://localhost:5001/api/docs
+```
+
+### 4. Run Frontend
+
+```bash
+npm run dev
+# App: http://localhost:5173
+```
 
 ---
 
-## 💾 GitHub Setup & Push Guidelines
+## 🏢 SaaS Multi-Tenancy
 
-Because `models/`, `test_video/`, and `evidence/` are ignored by `.gitignore` to prevent committing massive files (GBs), configure your repository and push to GitHub using the following commands:
+SentinelIQ is built for scale, supporting multi-organization SaaS deployments.
+Each organization (Tenant) has an isolated environment for cameras, users, and billing plans.
 
-1. Initialize git locally (if not already done):
-   ```bash
-   git init
-   ```
-2. Link your local directory to your GitHub repository:
-   ```bash
-   git remote add origin https://github.com/Vaishnav315/T-map.git
-   ```
-3. Stage and commit all important files (configs, source code, server scripts):
-   ```bash
-   git add .
-   git commit -m "Initial commit: Production-grade facility monitoring with async live streams and worker tracking"
-   ```
-4. Rename branch to `main` and push:
-   ```bash
-   git branch -M main
-   git push -u origin main
-   ```
-*(Note: Ensure you do NOT force-add ignored files to keep the remote repository small and clean!)*
+- **Role-Based Access (RBAC):** `admin` | `safety_manager` | `viewer`
+- **Plan Limits:** Starter (10 cameras) | Professional (50 cameras) | Enterprise (Unlimited)
+- **Data Isolation:** All queries filter by `tenant_id` at the database layer.
 
 ---
 
-## 🔒 Camera Credentials Backup & Restore
+## 📷 Camera Integrations
 
-The camera registry contains raw logins and IP addresses. To store this securely in Git without exposing passwords publicly or losing them when switching machines, we use a password-protected encryption tool.
+Connect cameras via the **Settings -> Integrations** tab:
+1. **Bulk RTSP Import** — Paste JSON arrays of RTSP URLs.
+2. **ONVIF Auto-Discovery** — Scan local subnets for compatible IP cameras.
+3. **VMS Database Connect** — Sync directly with external PostgreSQL/MySQL databases (Milestone, Genetec, etc.).
 
-### To Backup/Encrypt (On your active machine):
-1. Run the backup utility script:
-   ```bash
-   python backup_credentials.py
-   ```
-2. Choose **`1`** (Encrypt) and enter a strong master password.
-3. This creates a secure, encrypted backup file: `backend/data/camera_access_report.csv.enc`.
-4. Stage, commit, and push this file to GitHub:
-   ```bash
-   git add backend/data/camera_access_report.csv.enc
-   git commit -m "Add encrypted camera credentials backup"
-   git push origin main
-   ```
+---
 
-### To Restore/Decrypt (On your new machine):
-1. Clone the repository and install dependencies.
-2. Run the backup utility script:
-   ```bash
-   python backup_credentials.py
-   ```
-3. Choose **`2`** (Decrypt) and enter the master password you set during encryption.
-4. The decrypted configuration file `backend/data/camera_access_report.csv` is immediately recreated locally on your disk.
+## 🌐 Webhooks & API Keys
 
+Push real-time safety alerts to your external systems (ERP, HSE dashboards, Slack).
+- **Webhooks:** Configure endpoint URLs with HMAC signing secrets to receive live POST requests on threat detection.
+- **API Keys:** Generate secure `sk-...` bearer tokens for external script access.
+
+---
+
+## 🚀 Architecture Overview
+
+```text
+SentinelIQ Platform
+├── Frontend (React + Vite + Leaflet)
+│   ├── Unified Dashboard  — Live Map, Heatmaps, System Status
+│   ├── Settings           — SaaS Tenant Mgmt, Integrations, Webhooks
+│   └── Analytics          — VLM Alert Verification Center
+│
+├── Backend (FastAPI)
+│   ├── saas_routes.py        — Organizations & billing limits
+│   ├── integration_routes.py — ONVIF/RTSP discovery
+│   └── webhooks.py           — HMAC signed async dispatch
+│
+└── Adaptive AI Pipeline (gpu_manager.py)
+    ├── GPU Load Balancer     — Auto-shifts load between multiple GPUs
+    ├── YOLOv8 / ByteTrack    — Real-time bounding box tracking
+    ├── Homography Mapper     — 2D Perspective Projection
+    └── VLM Integrations      — Llava/Qwen threat verification
+```
+
+---
+
+## 🛠️ Security
+
+| Feature | Status |
+|---|---|
+| JWT Authentication | ✅ |
+| Role-Based Access Control | ✅ |
+| Multi-tenant Isolation | ✅ |
+| API Key Hashing (SHA-256) | ✅ |
+| Webhook HMAC Signatures | ✅ |
+
+---
+
+**SentinelIQ** — Built for zero false-alarms and maximum factory safety.

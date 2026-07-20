@@ -1,41 +1,119 @@
 version: '3.8'
 
+# ============================================================
+#  SentinelIQ AI Safety Platform — Docker Compose
+#  Laptop-first, cloud-ready.
+#  Usage:
+#    1. cp .env.example .env  (then fill in your secrets)
+#    2. docker compose up -d
+#    3. Frontend: http://localhost  (served by nginx)
+#       API Docs: http://localhost/api/docs
+# ============================================================
+
 services:
+
+  # ── Redis (Celery broker + result backend) ────────────────
   redis:
-    image: redis:alpine
-    container_name: tasl_redis
+    image: redis:7-alpine
+    container_name: sentineliq_redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
-    restart: always
-    command: redis-server --appendonly yes
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ── PostgreSQL / TimescaleDB ──────────────────────────────
   postgres:
-    image: timescale/timescaledb:latest-pg14
-    container_name: tasl_db
+    image: timescale/timescaledb:latest-pg16
+    container_name: sentineliq_db
+    env_file: .env
     environment:
-      POSTGRES_USER: tasl_admin
-      POSTGRES_PASSWORD: tasl_password
-      POSTGRES_DB: sentinel_db
+      POSTGRES_USER: sentineliq_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sentineliq_secure_password_change_me}
+      POSTGRES_DB: sentineliq_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    restart: always
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sentineliq_admin -d sentineliq_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-  celery_worker:
-    build: .
-    container_name: tasl_celery
-    command: celery -A backend.tasks worker --loglevel=info --concurrency=2
+  # ── FastAPI Application ───────────────────────────────────
+  sentineliq_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentineliq_api
+    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql://sentineliq_admin:${POSTGRES_PASSWORD:-sentineliq_secure_password_change_me}@postgres:5432/sentineliq_db
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "5000:5000"
     volumes:
-      - .:/app
+      - ./evidence:/app/evidence
+      - ./backend/data:/app/backend/data
+      - ./mediamtx:/app/mediamtx
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # ── Celery Worker (VLM + YOLO async tasks) ───────────────
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sentineliq_celery
+    command: celery -A backend.tasks worker --loglevel=info --concurrency=2 -Q default
+    env_file: .env
     environment:
       - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql://sentineliq_admin:${POSTGRES_PASSWORD:-sentineliq_secure_password_change_me}@postgres:5432/sentineliq_db
+    volumes:
+      - ./evidence:/app/evidence
+      - ./backend/data:/app/backend/data
     depends_on:
-      - redis
-      - postgres
-    restart: always
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ── Nginx Reverse Proxy (production frontend + API) ──────
+  nginx:
+    image: nginx:alpine
+    container_name: sentineliq_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./dist:/usr/share/nginx/html:ro      # Built frontend (npm run build)
+      - ./auto.crt:/etc/nginx/ssl/server.crt:ro
+      - ./auto.key:/etc/nginx/ssl/server.key:ro
+    depends_on:
+      sentineliq_api:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   redis_data:

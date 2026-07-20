@@ -5,7 +5,7 @@ import {
   CheckCircle2, Crosshair
 } from 'lucide-react';
 
-const BACKEND = 'http://127.0.0.1:5000';
+const BACKEND = 'http://127.0.0.1:5001';
 
 const MODS = [
   { id: 'people',       name: 'People Counting',      desc: 'Real-time worker density & tracking.',    accent: '#0EA5E9', engine: 'YOLO' },

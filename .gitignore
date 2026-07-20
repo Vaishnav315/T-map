@@ -1,3 +1,16 @@
+# ── Secrets (NEVER commit) ───────
+.env
+*.crt
+*.key
+
+# ── Runtime data (auto-generated) 
+evidence/
+backend/data/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
 # Logs
 logs
 *.log

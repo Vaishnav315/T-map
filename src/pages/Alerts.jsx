@@ -17,7 +17,7 @@ const VLM_STATUS_META = {
 const getSeverityMeta = (sev) => SEVERITY_META[sev?.toUpperCase()] || SEVERITY_META.INFO;
 const getVlmMeta      = (st)  => VLM_STATUS_META[st?.toUpperCase()]  || VLM_STATUS_META.PENDING;
 
-export default function Alerts({ alertLogs = [], onClearLogs, backendUrl = 'http://localhost:5000' }) {
+export default function Alerts({ alertLogs = [], onClearLogs, backendUrl = 'http://localhost:5001' }) {
   const [filter, setFilter] = useState('ALL');
 
   const filtered = filter === 'ALL'

@@ -1,12 +1,14 @@
-import { Shield, Hexagon, Map, Camera, History, ShieldAlert, Wifi, WifiOff, FlaskConical, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { ShieldCheck, Map, Camera, History, ShieldAlert, Wifi, WifiOff, FlaskConical, PanelLeftClose, PanelLeftOpen, Settings, BarChart3 } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const NAV = [
-  { to: '/',             label: 'LIVE MAP',  icon: Map         },
-  { to: '/ai-analytics', label: 'ANALYTICS', icon: Camera      },
-  { to: '/history',      label: 'HISTORY',   icon: History     },
-  { to: '/alerts',       label: 'ALERTS',    icon: ShieldAlert },
-  { to: '/test-center',  label: 'TESTING',   icon: FlaskConical},
+  { to: '/',             label: 'LIVE MAP',      icon: Map         },
+  { to: '/ai-analytics', label: 'ORCHESTRATION', icon: Camera      },
+  { to: '/data-dashboard', label: 'DASHBOARD',   icon: BarChart3   },
+  { to: '/history',      label: 'HISTORY',       icon: History     },
+  { to: '/alerts',       label: 'ALERTS',        icon: ShieldAlert },
+  { to: '/test-center',  label: 'TESTING',       icon: FlaskConical},
+  { to: '/settings',     label: 'SETTINGS',      icon: Settings    },
 ];
 
 export default function Header({ isBackendOffline, unreadAlerts = 0, isCollapsed, toggleSidebar }) {
@@ -16,12 +18,12 @@ export default function Header({ isBackendOffline, unreadAlerts = 0, isCollapsed
     <aside className={`sentinel-sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       {/* Logo mark */}
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">
-          <Hexagon size={24} color="var(--accent)" strokeWidth={2.5} />
+        <div className="sidebar-logo-icon" style={{ background: 'linear-gradient(135deg, #0ea5e9, #00e5ff)' }}>
+          <ShieldCheck size={20} color="#020B18" strokeWidth={2.5} />
         </div>
         <div className="sidebar-logo-text-wrap">
-          <div className="sidebar-logo-text">TASL SENTINEL</div>
-          <div className="sidebar-logo-sub">INDUSTRIAL PLATFORM</div>
+          <div className="sidebar-logo-text">SentinelIQ</div>
+          <div className="sidebar-logo-sub">AI SAFETY PLATFORM</div>
         </div>
       </div>
 

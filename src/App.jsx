@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import './App.css';
 
 import { MAP_LAYERS } from './constants/mapConfig';
+import { API_BASE } from './utils/api';
 
 import Header from './components/Layout/Header';
 import TopBar from './components/Layout/TopBar';
@@ -16,6 +17,8 @@ import AIAnalytics from './pages/AIAnalytics';
 import History from './pages/History';
 import Alerts from './pages/Alerts';
 import TestCenter from './pages/TestCenter';
+import Settings from './pages/Settings';
+import DataDashboard from './pages/DataDashboard';
 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -41,8 +44,8 @@ function AppShell() {
   const [showLayerMenu, setShowLayerMenu] = useState(false);
   const [detectFacesActive, setDetectFacesActive] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [backendUrl] = useState('');
-  const [pollingInterval] = useState(200);
+  const [backendUrl] = useState(API_BASE);       // uses VITE_API_URL in production
+  const [pollingInterval] = useState(3000);       // 3s polling — reasonable for dashboard data
   const [isBackendOffline, setIsBackendOffline] = useState(false);
   const [capturedCoord, setCapturedCoord] = useState(null);
 
@@ -77,29 +80,27 @@ function AppShell() {
   const mapCameras = filteredCameras.filter(cam => isBlueprint ? cam.blueprint_coords : cam.coords);
 
   // Load cameras layout configuration dynamically on mount
-  useEffect(() => {
-    let alive = true;
-    const loadConfig = async () => {
-      try {
-        const res = await fetch(`${backendUrl}/api/config/cameras`);
-        if (res.ok) {
-          const data = await res.json();
-          if (alive) {
-            setCameras(data);
-            const initialTracking = {};
-            data.forEach(cam => {
-              initialTracking[cam.id] = false;
-            });
-            setTrackingCameras(initialTracking);
-          }
-        }
-      } catch (err) {
-        console.error("Failed loading camera configurations:", err);
+  const loadConfig = useCallback(async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${backendUrl}/api/config/cameras`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCameras(data);
+        const initialTracking = {};
+        data.forEach(cam => { initialTracking[cam.id] = false; });
+        setTrackingCameras(initialTracking);
       }
-    };
-    loadConfig();
-    return () => { alive = false; };
+    } catch (err) {
+      console.error('Failed loading camera configurations:', err);
+    }
   }, [backendUrl]);
+
+  useEffect(() => {
+    loadConfig();
+  }, [loadConfig]);
 
   useEffect(() => {
     const t = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -109,9 +110,12 @@ function AppShell() {
   // Sync state stats and alerts pipelines
   useEffect(() => {
     let alive = true;
+    const token = () => localStorage.getItem('token');
+    const authHeader = () => token() ? { Authorization: `Bearer ${token()}` } : {};
+
     const poll = async () => {
       try {
-        const res = await fetch(`${backendUrl}/api/stats`);
+        const res = await fetch(`${backendUrl}/api/stats`, { headers: authHeader() });
         if (res.ok) {
           const data = await res.json();
           if (alive) {
@@ -130,29 +134,23 @@ function AppShell() {
           throw new Error();
         }
 
-        const systemRes = await fetch(`${backendUrl}/api/logs`);
-        const alertRes = await fetch(`${backendUrl}/api/alert_logs`);
-        const vlmRes = await fetch(`${backendUrl}/api/vlm_logs`);
-        const gateRes = await fetch(`${backendUrl}/api/gate_events`);
-        
-        if (systemRes.ok && alertRes.ok && vlmRes.ok && gateRes.ok) {
-            const systemData = await systemRes.json();
-            const alertData = await alertRes.json();
-            const vlmData = await vlmRes.json();
-            const gateData = await gateRes.json();
-            if (alive) {
-                setSystemLogs(systemData);
-                setAlertLogs(alertData);
-                setVlmLogs(vlmData);
-                setGateEvents(gateData);
-            }
-        }
-        
-        // Fetch unread count initially
-        const unreadRes = await fetch(`${backendUrl}/api/alerts/unread`);
-        if (unreadRes.ok) {
-            const unreadData = await unreadRes.json();
-            if (alive) setUnreadAlerts(unreadData.count || 0);
+        const [systemRes, alertRes, vlmRes, gateRes, unreadRes] = await Promise.all([
+          fetch(`${backendUrl}/api/logs`,        { headers: authHeader() }),
+          fetch(`${backendUrl}/api/alert_logs`,  { headers: authHeader() }),
+          fetch(`${backendUrl}/api/vlm_logs`,    { headers: authHeader() }),
+          fetch(`${backendUrl}/api/gate_events`, { headers: authHeader() }),
+          fetch(`${backendUrl}/api/alerts/unread`, { headers: authHeader() }),
+        ]);
+
+        if (alive) {
+          if (systemRes.ok) setSystemLogs(await systemRes.json());
+          if (alertRes.ok)  setAlertLogs(await alertRes.json());
+          if (vlmRes.ok)    setVlmLogs(await vlmRes.json());
+          if (gateRes.ok)   setGateEvents(await gateRes.json());
+          if (unreadRes.ok) {
+            const d = await unreadRes.json();
+            setUnreadAlerts(d.count || 0);
+          }
         }
       } catch {
         if (alive) setIsBackendOffline(true);
@@ -295,6 +293,7 @@ function AppShell() {
     '/history':      { title: 'Event History',       sub: 'System logs & gate events' },
     '/alerts':       { title: 'Alert Center',        sub: 'Security & safety events' },
     '/test-center':  { title: 'Test Center',         sub: 'Stream & system diagnostics' },
+    '/settings':     { title: 'Settings',            sub: 'Integrations & configuration' },
   };
 
   return (
@@ -342,6 +341,8 @@ function AppShell() {
             <Route path="/history" element={<History systemLogs={systemLogs} vlmLogs={vlmLogs} gateEvents={gateEvents} onClearLogs={handleClearLogs} />} />
             <Route path="/alerts" element={<Alerts alertLogs={alertLogs} onClearLogs={handleClearLogs} backendUrl={backendUrl} />} />
             <Route path="/test-center" element={<TestCenter backendUrl={backendUrl} />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/data-dashboard" element={<DataDashboard backendUrl={backendUrl} />} />
           </Routes>
         </div>
       </main>

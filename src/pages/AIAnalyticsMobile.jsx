@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Play, Square, X, ChevronRight, ChevronLeft, Video, AlertCircle, CheckCircle2 } from "lucide-react";
 
-const BACKEND = "http://127.0.0.1:5000";
+const BACKEND = "http://127.0.0.1:5001";
 
 const MODULES = [
   { id: "people",     name: "People Count",    desc: "Density & tracking",     accent: "#0EA5E9" },

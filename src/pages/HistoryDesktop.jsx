@@ -6,7 +6,7 @@ export default function History({
   vlmLogs = [], 
   gateEvents = [], 
   onClearLogs, 
-  backendUrl = 'http://localhost:5000' 
+  backendUrl = 'http://localhost:5001' 
 }) {
   const [tab, setTab] = useState('system');
 

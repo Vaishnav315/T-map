@@ -50,72 +50,10 @@ _engines_lock = threading.Lock()
 
 active_gate_cameras = set()
 
-_yolo_models = {}
-_yolo_models_lock = threading.Lock()
+from backend.ai.engine import get_yolo_model_for_camera
+
+# We are using get_yolo_model_for_camera from backend.ai.engine which uses GPUManager
 _gpu_inference_lock = threading.Lock()
-
-# Per-camera inference image size (TensorRT engines have fixed compiled sizes)
-_model_imgsz = {}  # camera_id -> int
-
-# Priority order to try when CUDA is available.
-# yolov8m = good balance of accuracy + speed for plant CCTV with many people.
-_TENSORRT_ENGINE_PRIORITY = [
-    'yolov8m.engine',   # Medium — accurate, fast, recommended for multi-person scenes
-    'yolov8l.engine',   # Large  — higher accuracy, use if GPU has enough VRAM
-    'yolov8n.engine',   # Nano   — last resort; fast but fluctuates in crowds
-]
-
-def get_yolo_model(camera_id):
-    with _yolo_models_lock:
-        if camera_id not in _yolo_models:
-            if not YOLO_AVAILABLE:
-                return None
-            try:
-                cuda = torch.cuda.is_available()
-                loaded = False
-
-                # ── Try TensorRT engines first if tensorrt is installed ─────────
-                try:
-                    import tensorrt
-                    tensorrt_available = True
-                except ImportError:
-                    tensorrt_available = False
-
-                if cuda and tensorrt_available:
-                    for engine_name in _TENSORRT_ENGINE_PRIORITY:
-                        engine_path = os.path.abspath(
-                            os.path.join(current_dir, "..", "..", "models", engine_name)
-                        )
-                        if os.path.exists(engine_path):
-                            try:
-                                model = YOLO(engine_path)
-                                _yolo_models[camera_id] = model
-                                # Read compiled imgsz from the engine metadata
-                                try:
-                                    compiled_sz = model.overrides.get('imgsz', INFER_IMGSZ)
-                                    if isinstance(compiled_sz, (list, tuple)):
-                                        compiled_sz = compiled_sz[0]
-                                    _model_imgsz[camera_id] = int(compiled_sz)
-                                except Exception:
-                                    _model_imgsz[camera_id] = INFER_IMGSZ
-                                print(f"[AI ENGINE] TensorRT loaded: {engine_name} (imgsz={_model_imgsz[camera_id]}) for cam {camera_id}")
-                                loaded = True
-                                break
-                            except Exception as eng_err:
-                                print(f"[AI ENGINE] Engine {engine_name} failed: {eng_err}")
-
-                # ── Fall back to PyTorch .pt model ────────────────────────────
-                if not loaded:
-                    pt_path = PT_MODEL_PATH if os.path.exists(PT_MODEL_PATH) else BASE_MODEL_NAME
-                    _yolo_models[camera_id] = YOLO(pt_path)
-                    _model_imgsz[camera_id] = INFER_IMGSZ
-                    print(f"[AI ENGINE] PyTorch model loaded: {pt_path} for cam {camera_id}")
-
-            except Exception as e:
-                print(f"[AI ENGINE ERROR] Failed to load model for cam {camera_id}: {e}")
-                return None
-
-        return _yolo_models.get(camera_id)
 
 class StreamEngine:
     def __init__(self, camera_id, source, detect_people=False):
@@ -139,7 +77,7 @@ class StreamEngine:
         self.device_target = 0 if cuda else "cpu"
         self.use_fp16 = cuda     
 
-        self.model = get_yolo_model(self.camera_id) if detect_people else None
+        self.model = get_yolo_model_for_camera(self.camera_id) if detect_people else None
         self.inference_started = detect_people
         self.detect_people = detect_people
 
@@ -289,8 +227,8 @@ class StreamEngine:
                     active_mods = state.get_ai_modules(self.camera_id)
                     frame_h, frame_w = frame.shape[:2]
 
-                    # Use per-camera imgsz — TensorRT engines have a fixed compiled size
-                    cam_imgsz = _model_imgsz.get(self.camera_id, INFER_IMGSZ)
+                    # Use fixed imgsz since we now manage devices globally
+                    cam_imgsz = getattr(self.model.overrides, 'imgsz', 640)
                     ai_dir = os.path.abspath(os.path.join(current_dir, "..", "ai"))
                     tracker_yaml = os.path.join(ai_dir, "bytetrack.yaml") if BYTETRACK_AVAILABLE else "botsort.yaml"
                     with _gpu_inference_lock:
@@ -318,10 +256,20 @@ class StreamEngine:
                             active_tids.add(tid)
                             frame_data_for_rules.append({
                                 'track_id': str(tid),
-                                'class_name': 'person',
-                                'bbox': [x1, y1, x2, y2],
-                                'timestamp': now
+                                'box': [x1, y1, x2, y2],
+                                'kpts': kpts
                             })
+                            # Record telemetry for analytics
+                            if self.camera_id and tid != -1:
+                                center_x = (x1 + x2) / 2
+                                center_y = (y1 + y2) / 2
+                                from backend.core.database import insert_position_telemetry
+                                try:
+                                    insert_position_telemetry(self.camera_id, tid, center_x, center_y, tenant_id="default")
+                                except Exception as e:
+                                    print(f"[TELEMETRY ERROR] {e}")
+                            
+                            frame_data_for_rules[-1]['timestamp'] = now
 
                             # --- Spatial-Temporal Tracking Logic ---
                             cx, cy = (x1 + x2) / 2.0, (y1 + y2) / 2.0
@@ -773,7 +721,7 @@ def toggle_background_tracking(camera_id, enable=True):
             if camera_id not in _active_engines:
                 engine = StreamEngine(camera_id, rtsp_url, detect_people=False)
                 engine.background_tracking = True
-                engine.model = get_yolo_model(camera_id)
+                engine.model = get_yolo_model_for_camera(camera_id)
                 engine.inference_started = True
                 _active_engines[camera_id] = engine
                 threading.Thread(target=engine._inference_loop, daemon=True).start()
@@ -781,7 +729,7 @@ def toggle_background_tracking(camera_id, enable=True):
                 engine = _active_engines[camera_id]
                 engine.background_tracking = True
                 if not getattr(engine, 'inference_started', False):
-                    engine.model = get_yolo_model(camera_id)
+                    engine.model = get_yolo_model_for_camera(camera_id)
                     engine.inference_started = True
                     threading.Thread(target=engine._inference_loop, daemon=True).start()
         else:
@@ -817,7 +765,7 @@ def get_video_stream(camera_id, detect_people=False, selected_worker=''):
             engine.detect_people = detect_people
             if detect_people:
                 if engine.model is None:
-                    engine.model = get_yolo_model(camera_id)
+                    engine.model = get_yolo_model_for_camera(camera_id)
                 if not getattr(engine, 'inference_started', False):
                     engine.inference_started = True
                     threading.Thread(target=engine._inference_loop, daemon=True).start()
@@ -841,7 +789,7 @@ async def get_video_stream_async(camera_id, detect_people=False, selected_worker
             engine.detect_people = detect_people
             if detect_people:
                 if engine.model is None:
-                    engine.model = get_yolo_model(camera_id)
+                    engine.model = get_yolo_model_for_camera(camera_id)
                 if not getattr(engine, 'inference_started', False):
                     engine.inference_started = True
                     threading.Thread(target=engine._inference_loop, daemon=True).start()
